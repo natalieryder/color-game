@@ -122,7 +122,7 @@ class App extends Component {
     } else {
       clicked.push(color);
       this.setState({
-        score: this.state.score += 1,
+        score: this.state.score + 1,
         clicked: clicked
       }, this.checkWin);
     };
