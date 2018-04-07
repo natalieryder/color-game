@@ -20,6 +20,7 @@ header {
 }
 .box {
   padding: 5%;
+  cursor: pointer;
 }
 .box div {
   height: 0;
@@ -29,9 +30,12 @@ header {
   transition: transform .2s ease;
 }
 
-.box div:hover {
+.box:hover div{
   transform: scale(1.03);
-  cursor: pointer;
+}
+
+.box:active div{
+  transform: scale(.9);
 }
 
 .reactmodal {
@@ -53,3 +57,22 @@ header {
 .instructions p {
   margin: 0;
 }
+
+.fade-enter {
+  opacity: 0;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: 2000ms;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0;
+  transition: 2000ms;
+}
+

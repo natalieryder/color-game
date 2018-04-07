@@ -5,14 +5,17 @@ import Header from "./components/Header";
 import Squares from "./components/Squares";
 import Modal from "./components/Modal";
 import Instructions from "./components/Instructions";
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
+//Add reset colors button
 class App extends Component {
   state = {
     colors: [],
     round: 1,
     score: 0,
     clicked: [],
-    modalIsOpen: false
+    modalIsOpen: false,
+    highestRound: 1,
   }
 
   toggleModal = win => {
@@ -21,11 +24,11 @@ class App extends Component {
     });
     if (win) {
       this.setState({
-        message: "You won! Try the next level!"
+        modalMessage: "You won! Try the next level!"
       })
     } else {
       this.setState({
-        message: "You lost! Try an easier level!"
+        modalMessage: "You lost! Try an easier level!"
       })
     }
   }
@@ -85,7 +88,10 @@ class App extends Component {
       }, () => {
         this.setColors();
         this.toggleModal(true);
-        });
+        if (this.state.round > this.state.highestRound) {
+          this.setState({highestRound: this.state.round})
+        }
+      });
 
     } else {
       this.shuffle();
@@ -128,19 +134,22 @@ class App extends Component {
     };
   }
 
+
   componentDidMount() {
     this.setColors();
   }
   render() {
     return (
         <div className="App">
-          <Header score={this.state.score} round={this.state.round}/>
+          <Header score={this.state.score} round={this.state.round} highestRound={this.state.highestRound}/>
           <div className="topPadding">
             <Instructions/>
-            <Squares colors={this.state.colors} handleCardClick={this.handleCardClick}/>
+            <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={2000} transitionLeaveTimeout={2000}>
+              <Squares colors={this.state.colors} handleCardClick={this.handleCardClick}/>
+            </ReactCSSTransitionGroup>
           </div>
           <Modal show={this.state.modalIsOpen}
-            onClose={this.toggleModal} message={this.state.message}/>
+            onClose={this.toggleModal} message={this.state.modalMessage}/>
 
         </div>
     );
