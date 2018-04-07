@@ -8,4 +8,6 @@ When all the circles are clicked, you move up a level.
 
 If you mess up, you move down a level.
 
+(Play Now) [https://natalieryder.github.io/color-game/]
+
 Have fun!
