@@ -8,7 +8,10 @@ const Squares = props => (
     {props.colors.map((color, i) => (
 
     	<div className="col-3 mb-4 box" key={i}>
-    		<div style={{backgroundColor: color}} onClick={() => props.handleCardClick(color)}>
+    		<div 
+    		style={{backgroundColor: color}} 
+    		onClick={() => props.handleCardClick(color)}
+    		className={props.fadeOut ? "fadeOut" : "fadeIn"}>
     			
     		</div>
     	</div>

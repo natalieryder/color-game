@@ -16,6 +16,8 @@ class App extends Component {
     clicked: [],
     modalIsOpen: false,
     highestRound: 1,
+    showInstructions: true,
+    fadeOut: false
   }
 
   toggleModal = win => {
@@ -75,6 +77,7 @@ class App extends Component {
       round: this.state.round - 1
     }, () => {
       this.setColors();
+      setTimeout(()=>this.setState({fadeOut: false}), 250);
       this.toggleModal(false);
     });
  
@@ -122,31 +125,44 @@ class App extends Component {
 
   handleCardClick = color => {
     let clicked = this.state.clicked;
-
+    this.setState({fadeOut: true});
     if (clicked.includes(color)) {
       this.handleLose();
     } else {
       clicked.push(color);
-      this.setState({
-        score: this.state.score + 1,
-        clicked: clicked
-      }, this.checkWin);
+      
+      setTimeout(() => {
+        this.setState({
+          score: this.state.score + 1,
+          clicked: clicked
+        }, () => {
+          this.checkWin();
+          this.setState({fadeOut: false});
+        });
+      }, 250);
+
     };
   }
-
 
   componentDidMount() {
     this.setColors();
   }
+
   render() {
     return (
         <div className="App">
           <Header score={this.state.score} round={this.state.round} highestRound={this.state.highestRound}/>
           <div className="topPadding">
-            <Instructions/>
-            <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={2000} transitionLeaveTimeout={2000}>
-              <Squares colors={this.state.colors} handleCardClick={this.handleCardClick}/>
-            </ReactCSSTransitionGroup>
+
+          <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
+            {this.state.showInstructions ? (
+              <Instructions>
+                <span class="dismiss" onClick={() => this.setState({showInstructions: false})}>Got it!</span>
+              </Instructions>
+            ) : ""}
+          </ReactCSSTransitionGroup>
+
+          <Squares fadeOut={this.state.fadeOut} colors={this.state.colors} handleCardClick={this.handleCardClick}/>
           </div>
           <Modal show={this.state.modalIsOpen}
             onClose={this.toggleModal} message={this.state.modalMessage}/>

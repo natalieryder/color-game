@@ -1,3 +1,10 @@
+#root {
+  background: #333;
+  padding-top: 50px;
+}
+html {
+  background: #333;
+}
 body {
   background: #333;
 }
@@ -28,6 +35,7 @@ header {
   border: 5px solid rgba(0,0,0,.5);
   border-radius: 50%;
   transition: transform .2s ease;
+
 }
 
 .box:hover div{
@@ -50,29 +58,63 @@ header {
   text-align: center;
   border: 1px solid white;
   border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 24px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .instructions p {
   margin: 0;
 }
-
+.instructions .dismiss {
+  text-decoration: underline;
+  transition: opacity .2s ease;
+}
+.instructions .dismiss:hover {
+  cursor:pointer;
+  opacity: .75;
+}
 .fade-enter {
   opacity: 0;
+  height: 0%;
 }
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: 2000ms;
+  transition: 500ms;
+  height: 100%;
 }
 
 .fade-leave {
   opacity: 1;
+  transform: scale(1);
+  /*transform-origin: top;*/
+  max-height: 100px;
 }
 
 .fade-leave.fade-leave-active {
   opacity: 0;
-  transition: 2000ms;
+  transition: 500ms;
+  transform: scale(1,0);
+  max-height: 0px;
+}
+.fadeOut {
+  animation: fade .25s forwards;
 }
 
+.fadeIn {
+  animation: fadeIn .25s;
+}
+
+@keyframes fadeIn {
+  0% {opacity: 0}
+  100% {opacity: 1}
+}
+
+@keyframes fade {
+  0% {
+    opacity: 1
+  }
+  100% {
+    opacity: 0
+  }
+}
