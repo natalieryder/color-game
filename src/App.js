@@ -6,6 +6,7 @@ import Squares from "./components/Squares";
 import Modal from "./components/Modal";
 import Instructions from "./components/Instructions";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import * as Colors from 'material-ui/styles/colors';
 
 //Add reset colors button
 class App extends Component {
@@ -42,6 +43,16 @@ class App extends Component {
       color += letters[Math.floor(Math.random() * 16)];
     }
     return color;
+
+    var randomProperty = function (obj) {
+      var keys = Object.keys(obj)
+      return obj[keys[ keys.length * Math.random() << 0]];
+    };
+  }
+  getRandomMUIColor = (Colors) => {
+    var keys = Object.keys(Colors)
+    var randomColor = Colors[keys[ keys.length * Math.random() << 0]];
+    return randomColor;
   }
 
   setColors() {
@@ -66,6 +77,7 @@ class App extends Component {
 
     for (var i = 0; i < numCards; i++) {
       colors.push(this.getRandomColor());
+      colors.push(this.getRandomMUIColor(Colors));
     };
 
     this.setState({colors: colors});
@@ -157,7 +169,7 @@ class App extends Component {
           <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             {this.state.showInstructions ? (
               <Instructions>
-                <span class="dismiss" onClick={() => this.setState({showInstructions: false})}>Got it!</span>
+                <span className="dismiss" onClick={() => this.setState({showInstructions: false})}>Got it!</span>
               </Instructions>
             ) : ""}
           </ReactCSSTransitionGroup>

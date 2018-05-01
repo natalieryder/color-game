@@ -1,6 +1,7 @@
 #root {
   background: #333;
   padding-top: 50px;
+  font-family: 'Roboto', sans-serif;
 }
 html {
   background: #333;
@@ -33,7 +34,7 @@ header {
   height: 0;
   padding-bottom: 100%;
   border: 5px solid rgba(0,0,0,.5);
-  border-radius: 50%;
+  /*border-radius: 50%;*/
   transition: transform .2s ease;
 
 }
