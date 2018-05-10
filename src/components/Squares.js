@@ -25,12 +25,12 @@ const styles = {
 const Squares = props => {
   const { classes } = props;
   return (
-  <MuiThemeProvider>
+  <MuiThemeProvider theme={styles}>
   <Paper className={classes.container}>
   <Grid className={"color-container"} container justify={'center'}>
 
     {props.colors.map((color, i) => (
-      <Grid item xs={4} sm={3} md={2} key={i}>
+      <Grid item xs={4} sm={3} key={i}>
     		<Paper 
     		style={{backgroundColor: color}} 
     		onClick={() => props.handleCardClick(color)}

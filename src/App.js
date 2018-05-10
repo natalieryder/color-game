@@ -13,6 +13,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 import PropTypes from 'prop-types';
 import MyButton from "./components/Button";
+import Alert from "./components/Alert";
 
 
 const theme = createMuiTheme({
@@ -88,10 +89,10 @@ class App extends Component {
   getRandomMUIColor = (colorset) => {
     var keys = Object.keys(MUIColors);
     var randomSet = MUIColors[keys[keys.length * Math.random() <<  0]];
-    console.log(randomSet);
+
     var keys2 = Object.keys(randomSet);
     var randomColor = randomSet[keys2[ keys2.length * Math.random() << 0]];
-    console.log(randomColor);
+
     //if it's not already in the set, return the color, otherwise try again
     if (!colorset.includes(randomColor)) {
       return randomColor;
@@ -205,9 +206,9 @@ class App extends Component {
     this.setColors();
   }
 
-  buttonClicked() {
-    alert("hi");
-  }
+  handleClose = () => {
+    this.setState({ modalIsOpen: false });
+  };
 
   render() {
     
@@ -230,8 +231,7 @@ class App extends Component {
 
          <MyButton clicked={() => this.setColors()} disabled={this.state.clicked.length > 0}> Get New Colors </MyButton>
           </div>
-          <Modal show={this.state.modalIsOpen}
-            onClose={this.toggleModal} message={this.state.modalMessage}/>
+          <Alert open={this.state.modalIsOpen} handleClose={this.handleClose} message={this.state.modalMessage}/>
             
 
         </MuiThemeProvider>
@@ -239,8 +239,5 @@ class App extends Component {
   }
 }
 
-App.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default App;
