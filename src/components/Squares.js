@@ -1,41 +1,55 @@
 import React from "react";
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+
 import Paper from 'material-ui/Paper';
+import Grid from "material-ui/Grid";
+import { withStyles } from 'material-ui/styles';
 
+const styles = {
+  root: {
+    backgroundColor: '#ff0000'
+  },
+  rounded: {
+    height: '100px',
+    borderRadius: '50%',
+    margin: 'auto',
+    marginTop: '20px',
+    marginBottom: '20px'
+  },
+  container: {
+    marginTop: "10px",
+    display: "block"
+  }
+};
 
-const Squares = props => (
+const Squares = props => {
+  const { classes } = props;
+  return (
   <MuiThemeProvider>
-  <div className="box-container container">
-
-    <RaisedButton label="Default" />
-  
-  <div className="row justify-content-center">
-  
-
+  <Paper className={classes.container}>
+  <Grid className={"color-container"} container justify={'center'}>
 
     {props.colors.map((color, i) => (
-
-    	<div className="col-3 mb-4 box" key={i}>
-    		<Paper
+      <Grid item xs={4} sm={3} md={2} key={i}>
+    		<Paper 
     		style={{backgroundColor: color}} 
     		onClick={() => props.handleCardClick(color)}
-    		className={props.fadeOut ? "fadeOut" : "fadeIn"}
-        circle={true}/>
-    			
-
-    	</div>
+        // square={true}
+    		className={`color-circle ${props.fadeOut ? "fadeOut" : "fadeIn" }`}
+        classes={{rounded: classes.rounded}}/>
+      </Grid>
     ))}
 
-  </div>
-  </div>
+  </Grid>
+  </Paper>
   </MuiThemeProvider>
 
-);
+
+)};
 
 // Squares.propTypes = {
 //   items: React.PropTypes.array.isRequired,
 //   removeItemHandler: React.PropTypes.func.isRequired
 // };
 
-export default Squares;
+export default withStyles(styles)(Squares);

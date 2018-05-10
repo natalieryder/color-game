@@ -4,13 +4,15 @@
   "private": true,
   "dependencies": {
     "gh-pages": "^1.1.0",
-    "material-ui": "^0.20.0",
+    "material-ui": "^1.0.0-beta.44",
+    "node": "^10.0.0",
+    "npm": "^6.0.0",
     "prop-types": "^15.6.1",
     "react": "^16.3.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.3.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.1.3"
+    "react-scripts": "^1.1.3"
   },
   "scripts": {
     "predeploy": "npm run build",
@@ -20,5 +22,8 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://natalieryder.github.io/color-game/"
+  "homepage": "https://natalieryder.github.io/color-game/",
+  "devDependencies": {
+    "babel-preset-stage-1": "^6.24.1"
+  }
 }

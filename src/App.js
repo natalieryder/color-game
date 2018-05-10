@@ -6,7 +6,43 @@ import Squares from "./components/Squares";
 import Modal from "./components/Modal";
 import Instructions from "./components/Instructions";
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import * as Colors from 'material-ui/styles/colors';
+import * as MUIColors from 'material-ui/colors';
+import Button from 'material-ui/Button';
+import { createMuiTheme } from 'material-ui/styles';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+import PropTypes from 'prop-types';
+import MyButton from "./components/Button";
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main:'#333',
+    },
+    secondary: {
+      main: '#ff0000',
+    },
+    error: {
+      main: '#bc0980'
+    }
+  },
+})
+
+const error = createMuiTheme({
+  palette: {
+    primary: {
+      main:'#bc0980',
+    },
+    secondary: {
+      main: '#989893',
+    },
+    error: {
+      main: '#bc0980'
+    }
+  },
+})
+
 
 //Add reset colors button
 class App extends Component {
@@ -49,17 +85,26 @@ class App extends Component {
       return obj[keys[ keys.length * Math.random() << 0]];
     };
   }
-  getRandomMUIColor = (Colors) => {
-    var keys = Object.keys(Colors)
-    var randomColor = Colors[keys[ keys.length * Math.random() << 0]];
-    return randomColor;
+  getRandomMUIColor = (colorset) => {
+    var keys = Object.keys(MUIColors);
+    var randomSet = MUIColors[keys[keys.length * Math.random() <<  0]];
+    console.log(randomSet);
+    var keys2 = Object.keys(randomSet);
+    var randomColor = randomSet[keys2[ keys2.length * Math.random() << 0]];
+    console.log(randomColor);
+    //if it's not already in the set, return the color, otherwise try again
+    if (!colorset.includes(randomColor)) {
+      return randomColor;
+    } else {
+      return this.getRandomMUIColor(colorset);
+    }    
   }
 
   setColors() {
     let numCards = 0,
-    colors = [],
+    colorset = [],
     r = this.state.round;
-
+    this.setState({clicked: []});
 
     switch(true) {
       // round 1 has 4 cards, so 3 + round 
@@ -76,11 +121,11 @@ class App extends Component {
     }
 
     for (var i = 0; i < numCards; i++) {
-      colors.push(this.getRandomColor());
-      colors.push(this.getRandomMUIColor(Colors));
+      // colors.push(this.getRandomColor());
+      colorset.push(this.getRandomMUIColor(colorset));
     };
 
-    this.setState({colors: colors});
+    this.setState({colors: colorset});
   }
   handleLose() {
     console.log("lose");
@@ -160,28 +205,42 @@ class App extends Component {
     this.setColors();
   }
 
+  buttonClicked() {
+    alert("hi");
+  }
+
   render() {
+    
     return (
-        <div className="App">
-          <Header score={this.state.score} round={this.state.round} highestRound={this.state.highestRound}/>
-          <div className="topPadding">
+        
+        <MuiThemeProvider theme={theme}>
+
+        <Header score={this.state.score} round={this.state.round} highestRound={this.state.highestRound}/>
+          <div className="main-content">
 
           <ReactCSSTransitionGroup transitionName="fade" transitionEnterTimeout={500} transitionLeaveTimeout={500}>
             {this.state.showInstructions ? (
               <Instructions>
-                <span className="dismiss" onClick={() => this.setState({showInstructions: false})}>Got it!</span>
+                <Button align={"center"} className="dismiss" onClick={() => this.setState({showInstructions: false})}> Got It </Button>
               </Instructions>
             ) : ""}
           </ReactCSSTransitionGroup>
 
           <Squares fadeOut={this.state.fadeOut} colors={this.state.colors} handleCardClick={this.handleCardClick}/>
+
+         <MyButton clicked={() => this.setColors()} disabled={this.state.clicked.length > 0}> Get New Colors </MyButton>
           </div>
           <Modal show={this.state.modalIsOpen}
             onClose={this.toggleModal} message={this.state.modalMessage}/>
+            
 
-        </div>
+        </MuiThemeProvider>
     );
   }
 }
+
+App.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
 
 export default App;

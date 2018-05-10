@@ -1,21 +1,61 @@
 #root {
+  background: #333;
+  padding-top: 50px;
   font-family: 'Roboto', sans-serif;
   min-width: 300px;
 }
 
-.MuiToolbar-root-36 {
-  padding: 16px;
+html {
+  background: #333;
+}
+body {
+  background: #333;
+}
+header {
+  background: #333;
+  color: white;
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  top: 0;
+}
+.topPadding {
+  margin-top: 70px;
+}
+.box-container {
+  /*padding-top: 20px;*/
+  background: white;
+  box-shadow: 3px 3px 3px #999;
+  padding-top: 1.5rem;
+}
+.box {
+  padding: 5%;
+  cursor: pointer;
+}
+.box div {
+  height: 0;
+  padding-bottom: 100%;
+  border: 5px solid rgba(0,0,0,.5);
+  border-radius: 50%;
+  transition: transform .2s ease;
+
 }
 
-.main-content {
-  padding: 10px;
-  max-width: 900px;
-  width: 90%;
-  margin: auto;
+.box:hover div{
+  transform: scale(1.03);
 }
-.instructionsContainer {
-  /*margin: 10px;*/
+
+.box:active div{
+  transform: scale(.9);
 }
+
+.reactmodal {
+  position: absolute;
+  top: 50vh;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+}
+
 .instructions {
   color: white;
   text-align: center;
@@ -23,7 +63,6 @@
   border-radius: 5px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin: 5%;
 }
 
 .instructions p {
@@ -36,29 +75,6 @@
 .instructions .dismiss:hover {
   cursor:pointer;
   opacity: .75;
-}
-
-
-
-.color-container {
-  /*height: 300px;*/
-}
-.color-container .color-circle {
-  width: 100px;
-}
-
-.color-circle {
-  /*border: 5px solid rgba(0,0,0,.5);*/
-  transition: transform .2s ease;
-  cursor: pointer;
-}
-
-.color-circle:hover{
-  transform: scale(1.03);
-}
-
-.color-circle:active{
-  transform: scale(.9);
 }
 .fade-enter {
   opacity: 0;
@@ -76,7 +92,6 @@
   transform: scale(1);
   /*transform-origin: top;*/
   max-height: 100px;
-
 }
 
 .fade-leave.fade-leave-active {
@@ -84,8 +99,6 @@
   transition: 500ms;
   transform: scale(1,0);
   max-height: 0px;
-
-
 }
 .fadeOut {
   animation: fade .25s forwards;
