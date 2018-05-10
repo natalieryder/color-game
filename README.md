@@ -1,6 +1,6 @@
 ## Color Game
 
-My game generates random hex codes and renders circles.
+My game ~~generates random hex codes~~ chooses random colors from Material-UI's color options and renders 4 circles.
 
 Each time the player clicks a circle, the circles shuffle in a random order.
 
