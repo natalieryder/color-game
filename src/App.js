@@ -68,7 +68,7 @@ class App extends Component {
       })
     } else {
       this.setState({
-        modalMessage: "You lost! Try an easier level!"
+        modalMessage: "You lost! Try an easier level! 66 62 73 79 78 69 61 72"
       })
     }
   }
